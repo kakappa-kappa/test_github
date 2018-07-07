@@ -5,6 +5,7 @@ using UnityEngine;
 public class movetest2 : MonoBehaviour {
     private Animator animator;
     public float speed = 1.0f;
+    public int myColor = 0;
     public const int MAX = 6;
 
     private GameObject[] panels;
@@ -98,8 +99,8 @@ public class movetest2 : MonoBehaviour {
         fillArea(0,0,6,6,4); //全部灰色に
 
         //自エリアの色変え
-        fillArea(0, 0, startArea, startArea, 0);
-        collorArea(0,0,startArea,startArea,0);
+        fillArea(0, 0, startArea, startArea, myColor);
+        collorArea(0,0,startArea,startArea,myColor);
 
 	}
 	
@@ -107,14 +108,14 @@ public class movetest2 : MonoBehaviour {
 	void Update () {
      
         if (Input.GetKeyDown("w")){
-            if (pos - MAX >= 0 && color[pos-MAX] == player(0)) {
+            if (pos - MAX >= 0 && color[pos-MAX] == player(myColor)) {
                 transform.Translate(0, 0, 10);
                 pos -= MAX;
             }
         }
         
         if (Input.GetKeyDown("d")){
-            if (pos % MAX != MAX- 1 && color[pos + 1] == player(0)) {
+            if (pos % MAX != MAX- 1 && color[pos + 1] == player(myColor)) {
                 transform.Translate(10, 0, 0);
                 pos += 1; 
             }
@@ -122,40 +123,41 @@ public class movetest2 : MonoBehaviour {
 
         if (Input.GetKeyDown("a"))
         {
-            if (pos % MAX != 0 && color[pos - 1] == player(0)) {
+            if (pos % MAX != 0 && color[pos - 1] == player(myColor)) {
                 transform.Translate(-10, 0, 0);
                 pos -= 1;
             }
         }
         if (Input.GetKeyDown("s"))
         {
-            if (pos + MAX < MAX* MAX && color[pos + MAX] == player(0)) {
+            if (pos + MAX < MAX* MAX && color[pos + MAX] == player(myColor)) {
                 transform.Translate(0, 0, -10);
                 pos += MAX;
             }
         }
         if (Input.GetKeyDown("space")) {
-            if (pos-MAX > 0 && color[pos - MAX] != player(0)) {//上が自分の色と異なる
-                changeArea(pos,1,0);
-                changeColor(pos,1,0);
+            if (pos-MAX > 0 && color[pos - MAX] != player(myColor))
+            {//上が自分の色と異なる
+                changeArea(pos,1, myColor);
+                changeColor(pos,1, myColor);
             }
 
-            if (pos % MAX != 0 && color[pos - 1] != player(0))
+            if (pos % MAX != 0 && color[pos - 1] != player(myColor))
             {//左が自分の色と異なる
-                changeArea(pos, 2, 0);
-                changeColor(pos, 2, 0);
+                changeArea(pos, 2, myColor);
+                changeColor(pos, 2, myColor);
             }
 
-            if (pos % MAX != MAX-1 && color[pos + 1] != player(0))
+            if (pos % MAX != MAX-1 && color[pos + 1] != player(myColor))
             {//右が自分の色と異なる
-                changeArea(pos, 3, 0);
-                changeColor(pos, 3, 0);
+                changeArea(pos, 3, myColor);
+                changeColor(pos, 3, myColor);
             }
 
-            if (pos < MAX*MAX-MAX && color[pos + MAX] != player(0))
+            if (pos < MAX*MAX-MAX && color[pos + MAX] != player(myColor))
             {//下が自分の色と異なる
-                changeArea(pos, 4, 0);
-                changeColor(pos, 4, 0);
+                changeArea(pos, 4, myColor);
+                changeColor(pos, 4, myColor);
             }
         }
         else
